@@ -1,0 +1,27 @@
+
+
+.bigButtons{
+    background: rgb(255, 0, 234);
+}
+
+.displaynone{
+    visibility:hidden;
+}
+
+.button{
+    font-family: 'Press Start 2P', cursive;
+    color:black;
+    margin: 15px;
+    padding:13px ;
+    font-size:10px ;
+    background: black;
+    color: white;
+    
+    border-width:1px;
+    border-style: dotted;
+    border-radius: 15px;
+ 
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+}
