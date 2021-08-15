@@ -156,16 +156,16 @@ export default function Pokedex() {
 
         window.onbeforeunload = (event) => {
             const e = event || window.event;
-            // Cancel the event
-            // e.preventDefault();
-            // if (e) {
-            //     e.returnValue = ''; // Legacy method for cross browser support
-            // }
+            //Cancel the event
+            e.preventDefault();
+            if (e) {
+                e.returnValue = ''; // Legacy method for cross browser support
+            }
 
             history.push("/login")
 
 
-            // return ''; // Legacy method for cross browser support
+            return ''; // Legacy method for cross browser support
 
         };
 
