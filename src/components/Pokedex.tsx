@@ -40,31 +40,32 @@ export default function Pokedex() {
     //  hook form SEARCH
 
     const { register, handleSubmit } = useForm<FormValues>();
-    const onSubmit: SubmitHandler<FormValues> = async data => {
+    const onSubmit: SubmitHandler<FormValues> = async (data, e) => {
 
 
+        try {
+
+            const response: any = await axios.get(`https://pokeapi.co/api/v2/pokemon/${data.PokemonName}/`)
+            const data2: any = await response.data.id
 
 
-        const response: any = await axios.get(`https://pokeapi.co/api/v2/pokemon/${data.PokemonName}/`)
-        const data2: any = await response.data.id
+            history.push({
+                pathname: `/pokedex/pokemon/:${data2}`,
+                state: {
+                    id: data2,
+                    initial: sliceParams.inicial,
+                    limite: sliceParams.limite,
+                    buttonSellect: itemColor
+                }
 
-        console.log(data2);
+            })
+
+        } catch (error) {
+            alert("pokemon no exist")
+            e.target.reset();
+        }
 
 
-
-
-
-
-        history.push({
-            pathname: `/pokedex/pokemon/:${data2}`,
-            state: {
-                id: data2,
-                initial: sliceParams.inicial,
-                limite: sliceParams.limite,
-                buttonSellect: itemColor
-            }
-
-        })
 
 
 
@@ -262,7 +263,8 @@ export default function Pokedex() {
                                 ) : null}
                     </select>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <input style={{ position: "relative", paddingLeft: "10px", marginRight: "-10px" }} placeholder="Search Pokemon" {...register("PokemonName")} />
+                        <input style={{ position: "relative", paddingLeft: "10px", marginRight: "-10px", fontSize: "20px" }} placeholder="Search Pokemon name 
+                        " {...register("PokemonName")} />
                         <input style={{ position: "relative", right: "26px" }} type="submit" value="Search" />
                     </form>
                     <button style={{ backgroundColor: "red", fontSize: "15px" }} onClick={todos}>Return to All Pokemon</button>
@@ -332,7 +334,7 @@ export default function Pokedex() {
                     </select>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <input style={{ position: "relative", paddingLeft: "10px", marginRight: "-10px" }} placeholder="Search Pokemon" {...register("PokemonName")} />
+                        <input style={{ position: "relative", paddingLeft: "10px", marginRight: "-10px", fontSize: "15px" }} placeholder="Search Pokemon name" {...register("PokemonName")} />
                         <input style={{ position: "relative", right: "26px" }} type="submit" value="Search" />
                     </form>
 
