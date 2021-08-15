@@ -32,7 +32,7 @@ export default function Pokedex() {
     const [render, setrender] = useState(true)
     const [itemColor, setitemColor] = useState("")
     const [buttonsTypesNext, setbuttonsTypesNext] = useState(0)
-    const [buttonsTypesAfter, setbuttonsTypesAfter] = useState([])
+
 
 
 
