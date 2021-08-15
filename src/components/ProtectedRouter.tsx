@@ -8,26 +8,12 @@ type Props = {
     props?: any
 };
 
-
 const ProtectedRoute = ({ children, ...props }: Props) => {
     const h1Ref = useRef<any>();
-
-
-    // useEffect(() => {
-    //     if (typeof sessionStorage.getItem("user") === "string") {
-    //     } else {
-    //         setTimeout((e) => {
-    //             h1Ref.current.click();
-    //         }, 5000);
-    //     }
-    // }, [])
-
 
     if (typeof sessionStorage.getItem("user") === "string") {
         return <Route {...props}> {children} </Route>
     }
-
-
 
     return (
         <div className="containerProtector">
@@ -39,9 +25,6 @@ const ProtectedRoute = ({ children, ...props }: Props) => {
             </div>
         </div>
     )
-
-
-
 }
 
 export default ProtectedRoute

@@ -46,17 +46,6 @@ export function UsuarioProvider(props?: any) { // props son opcionales si es que
         arra.map(async (x: any) => {
             const response: any = axios.get(`https://pokeapi.co/api/v2/pokemon/${x}`)
 
-            //     return {
-            //        name: info.data.name,
-            //        img: `https://play.pokemonshowdown.com/sprites/xyani/${info.data.name}.gif`,
-            //        tipos: info.data.types.map((type) => type.type.name),
-            //        hp: info.data.stats[0].base_stat,
-            //        attack: info.data.stats[1].base_stat,
-            //        defense: info.data.stats[2].base_stat,
-            //        speed: info.data.stats[5].base_stat,
-            //        id: info.data.id
-            //     }
-            //  })
 
             array.push(response)
         })
@@ -143,75 +132,3 @@ export const ProvideAuth = ({ children, ...props }: any) => {
 
 
 export const useAuth = () => useContext(usuarioContext)
-
-
-
-
-// codigo reciclaje
-
-//    //get API Initial
-//    const getPokemonInitial = async () => { //llamar los primeros pokemon
-
-//     // const response = await axios.get(url.urlActual);
-//     // const data: getAPI = await response.data;
-
-
-
-//     //meto los pokemon llamados en un array
-//     const arra: any = data.results.map((x) => x.name)
-
-
-//     let array: any = [];
-//     arra.map(async (x: any) => {
-
-
-//         const response: any = await axios.get(`https://pokeapi.co/api/v2/pokemon/${x}`)
-//         const data: any = await response.data
-
-
-
-//         let obj: any = {
-//             name: data.name,
-//             img: `https://play.pokemonshowdown.com/sprites/xyani/${data.name}.gif`,
-//             tipos: data.types.map((type: any) => { return type.type.name }),
-//             hp: data.stats[0].base_stat,
-//             attack: data.stats[1].base_stat,
-//             defense: data.stats[2].base_stat,
-//             speed: data.stats[5].base_stat,
-//             id: data.id,
-//             color: data.color,
-//         }
-//         array.push(obj)
-//     })
-//     setPokemondataStats(array);
-
-//     // const obj = {
-//     //     nextUrl: data.next,
-//     //     prevUrl: data.previous ? data.previous : "",
-//     // }
-//     // //se agrega la pagina siguiente y anterior
-//     // seturl(prev => {
-//     //     return {
-//     //         ...prev, ...obj
-//     //     }
-//     // })
-
-
-
-
-// }
-
-
-// const color: any = async () => {
-
-//     let arrayColors: any = [];
-
-//     pokemonData.length > 0 && pokemonData.data.map(async (pokemon: any) => {
-//         const response = axios.get(`https://pokeapi.co/api/v2/pokemon-color/${pokemon.id}`)
-
-//         arrayColors.push(response)
-//     })
-
-//     let dataFinaly = await Promise.all(arrayColors)
-//     setColors(dataFinaly)
-// }

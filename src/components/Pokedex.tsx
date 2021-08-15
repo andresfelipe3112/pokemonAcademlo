@@ -7,19 +7,18 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 
 
-
+//interface
 
 type FormValues = {
     PokemonName: string;
 };
 
 
+
 export default function Pokedex() {
 
     let history = useHistory()
     let location: any = useLocation()
-
-
 
     const { buttonsReder, pokemonData, getPokemonDinamic } = useAuth()
     const [sliceParams, setsliceParams] = useState({
@@ -65,11 +64,6 @@ export default function Pokedex() {
             e.target.reset();
         }
 
-
-
-
-
-
     }
 
     // option TYPES
@@ -95,6 +89,7 @@ export default function Pokedex() {
     }
 
 
+    // button function
 
     const onlyPOkemonID = (id: any) => {
 
@@ -111,7 +106,6 @@ export default function Pokedex() {
     }
 
 
-
     const colorBoton = async (e: any, d?: any) => {
         let htmlB: any = document.getElementsByClassName("bigButtons")
         for (let index = 0; index < htmlB.length; index++) {
@@ -123,22 +117,6 @@ export default function Pokedex() {
     }
 
 
-
-
-
-    useEffect(() => {
-
-
-
-        if (render === true && buttonsReder.length > 1) {
-            let buttonPag: any = document.getElementsByClassName("button")[0]
-            buttonPag.className = "bigButtons"
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-
     const RefreshAfter = (e?: any) => {
         let buton: any = e.target.parentNode.children[0]
         buton.click()
@@ -148,86 +126,9 @@ export default function Pokedex() {
         let buton2: any = e.target.parentElement.childNodes[9]
         buton2.click()
     }
-
-
-
-    useEffect(() => {
-
-
-        window.onbeforeunload = (event) => {
-            const e = event || window.event;
-            //Cancel the event
-            e.preventDefault();
-            if (e) {
-                e.returnValue = ''; // Legacy method for cross browser support
-            }
-
-            history.push("/login")
-
-
-            return ''; // Legacy method for cross browser support
-
-        };
-
-
-        render === true && setTimeout(() => {
-
-
-            let g: any = document.getElementById("0")
-            if (itemColor.length > 0 && itemColor === "" && g.className === "button") {
-
-                g.click()
-            }
-
-            let d: any = document.getElementsByClassName("button")
-
-
-            if (render === true && location.state && location.state.buttonSellect !== "") {
-
-                for (let index = 0; index < d.length; index++) {
-                    if (d[index].innerHTML === location.state.buttonSellect) {
-                        d[index].className = "bigButtons"
-                        g.className = "button";
-                    }
-
-                }
-            }
-
-
-        }, 100);
-
-
-
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-
-
-    useEffect(() => {
-
-
-
-        const typesPokemon = async () => {
-            const response: any = await axios.get(`https://pokeapi.co/api/v2/type`)
-            const data: any = await response.data
-
-            let tipos: any = data && data.results.map((x: any) => {
-                return x.name
-            })
-            setTipoPokemonOnlyNames(tipos)
-        }
-
-        typesPokemon()
-
-
-    }, [])
-
-
     const todos: any = () => {
         setrender(true)
     }
-
 
 
     const nextTypes = () => {
@@ -243,6 +144,76 @@ export default function Pokedex() {
             return prev - 4
         })
     }
+
+    //useEffect
+
+    useEffect(() => {
+
+        if (render === true && buttonsReder.length > 1) {
+            let buttonPag: any = document.getElementsByClassName("button")[0]
+            buttonPag.className = "bigButtons"
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+
+    useEffect(() => {
+
+        window.onbeforeunload = (event) => {
+            const e = event || window.event;
+            //Cancel the event
+            e.preventDefault();
+            if (e) {
+                e.returnValue = ''; // Legacy method for cross browser support
+            }
+            history.push("/login")
+            return ''; // Legacy method for cross browser support
+        };
+
+
+        render === true && setTimeout(() => {
+
+            let g: any = document.getElementById("0")
+            if (itemColor.length > 0 && itemColor === "" && g.className === "button") {
+
+                g.click()
+            }
+
+            let d: any = document.getElementsByClassName("button")
+
+            if (render === true && location.state && location.state.buttonSellect !== "") {
+
+                for (let index = 0; index < d.length; index++) {
+                    if (d[index].innerHTML === location.state.buttonSellect) {
+                        d[index].className = "bigButtons"
+                        g.className = "button";
+                    }
+                }
+            }
+
+
+        }, 100);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+
+
+    useEffect(() => {
+
+        const typesPokemon = async () => {
+            const response: any = await axios.get(`https://pokeapi.co/api/v2/type`)
+            const data: any = await response.data
+
+            let tipos: any = data && data.results.map((x: any) => {
+                return x.name
+            })
+            setTipoPokemonOnlyNames(tipos)
+        }
+        typesPokemon()
+    }, [])
+
+
 
 
     //render DE TYPOS
@@ -395,7 +366,6 @@ export default function Pokedex() {
                                             <h3 className="h3">attack: {pokemon.data.stats[1].base_stat}</h3>
                                             <h3 className="h3"> defense: {pokemon.data.stats[2].base_stat}</h3>
                                             <h3 className="h3"> speed: {pokemon.data.stats[2].base_stat}</h3>
-
                                         </div>
                                     </div>
                                 )
@@ -409,101 +379,3 @@ export default function Pokedex() {
     }
 }
 
-
-
-
-
-
-
-
-
-// {
-//     pokemonData.data.length > 0 && pokemonData.data.map((pokemon: any, index: number) => {
-//         return (
-//             <div key={index}>
-//                 <img src={`https://play.pokemonshowdown.com/sprites/xyani/${pokemon.name}.gif`} alt="" />
-//                 <h1>{pokemon.name}</h1>
-//             </div>
-//         )
-//     })
-// }
-
-//{/* <img src={`https://play.pokemonshowdown.com/sprites/xyani/${pokemon.name}.gif`} alt="" /> */ }
-
-
-
-
-// return (
-//     <div className="Container">
-//         <div className="">
-
-//             <select onChange={typesSearch} >
-//                 <option defaultValue="selected"  > ¡Selected Type! </option>
-//                 {
-//                     tipoPokemonOnlyNames !== "" ?
-//                         tipoPokemonOnlyNames.map((item: any, index: any) =>
-//                             <option key={index} value={item}>{item}</option>
-//                         ) : null}
-//             </select>
-
-
-//         </div>
-
-
-//         <div className="ContainerPOkedex">
-//             <div className="">
-//                 {
-//                     buttonsReder.length > 0 && buttonsReder.slice(sliceParams.inicial, sliceParams.limite).map((buttonString: string, index: number) => {
-//                         return (
-//                             <button id={index.toString()} onClick={(e) => {
-//                                 colorBoton(e);
-
-//                                 setsliceParams({
-//                                     //7                                                                                   
-//                                     inicial: (parseInt(buttonString, 10) - 1) >= 5 ? (parseInt(buttonString, 10) - 1) - 5 : 0,
-//                                     limite: (parseInt(buttonString, 10) - 1) >= 5 ? (parseInt(buttonString, 10) - 1) + 5 : 10,
-//                                 })
-//                                 getPokemonDinamic(
-//                                     ((parseInt(buttonString, 10) - 1) * 4).toString());
-
-//                             }}
-//                                 className="button" key={(parseInt(buttonString, 10) - 1)}>{buttonString}</button>
-//                         )
-//                     })
-//                 }
-//                 <button id="Refresh" type="submit" onClick={(e: any) => { RefreshAfter(e) }}>{`<<<`}</button>
-//                 <button id="" type="submit" onClick={(e: any) => { RefreshNext(e) }}>{`>>>`}</button>
-//             </div>
-
-
-//             <div className="containerPokemon">
-
-//                 {
-//                     pokemonData.length > 0 && pokemonData.map((pokemon: any, index: number) => {
-
-
-//                         return (
-//                             <div className="containerPokemonUNI" key={index}>
-//                                 <div className="containerIMG" >
-//                                     <img className="imagenGrandePokemon" src={pokemon.data.sprites.other["official-artwork"].front_default} alt="" />
-//                                     <img className="imagenPequeñaPokemon" src={`https://play.pokemonshowdown.com/sprites/xyani/${pokemon.data.name}.gif`} alt="" />
-//                                 </div>
-//                                 <div className="containerStats">
-
-//                                     <h1 className="h1">{pokemon.data.name} #0{pokemon.data.id}</h1>
-//                                     <h3 className="h3"> hp :{pokemon.data.stats[0].base_stat}</h3>
-//                                     <h3 className="h3">attack: {pokemon.data.stats[1].base_stat}</h3>
-//                                     <h3 className="h3"> defense: {pokemon.data.stats[2].base_stat}</h3>
-//                                     <h3 className="h3"> speed: {pokemon.data.stats[2].base_stat}</h3>
-
-//                                 </div>
-//                             </div>
-//                         )
-//                     })
-//                 }
-
-//             </div>
-//         </div>
-//     </div>
-// )
-// }
