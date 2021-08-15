@@ -40,7 +40,7 @@ export default function Pokedex() {
     //  hook form SEARCH
 
     const { register, handleSubmit } = useForm<FormValues>();
-    const onSubmit: SubmitHandler<FormValues> = async (data, e) => {
+    const onSubmit: SubmitHandler<FormValues> = async (data, e?: any) => {
 
 
         try {
