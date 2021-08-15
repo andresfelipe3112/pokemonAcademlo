@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from 'axios';
 
 //interface typeScript
-import { getAPI, urlInterface } from "../interfaces/interfaceConstext"
+import { getAPI, urlInterface, } from "../interfaces/interfaceConstext"
 
 
 
@@ -22,9 +22,14 @@ export function UsuarioProvider(props?: any) { // props son opcionales si es que
     }
 
     //useState
-    const [pokemonData, setPokemoData] = useState({});
+    const [pokemonData, setPokemoData] = useState<any>({});
     const [url, seturl] = useState(objUrl);
     const [buttonsReder, setbuttonsReder] = useState<any>(1)
+
+
+    let array: any = [];
+
+
 
 
 
@@ -35,77 +40,45 @@ export function UsuarioProvider(props?: any) { // props son opcionales si es que
 
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${numero}&limit=4`);
         const data: getAPI = await response.data;
+        const arra: any = data.results.map((x) => x.name)
 
-        setPokemoData(data.results);
 
-        const obj = {
-            nextUrl: data.next,
-            prevUrl: data.previous ? data.previous : "",
-        }
+        arra.map(async (x: any) => {
+            const response: any = axios.get(`https://pokeapi.co/api/v2/pokemon/${x}`)
 
-        //se agrega la pagina siguiente y anterior
-        seturl(prev => {
-            return {
-                ...prev, ...obj
-            }
+            //     return {
+            //        name: info.data.name,
+            //        img: `https://play.pokemonshowdown.com/sprites/xyani/${info.data.name}.gif`,
+            //        tipos: info.data.types.map((type) => type.type.name),
+            //        hp: info.data.stats[0].base_stat,
+            //        attack: info.data.stats[1].base_stat,
+            //        defense: info.data.stats[2].base_stat,
+            //        speed: info.data.stats[5].base_stat,
+            //        id: info.data.id
+            //     }
+            //  })
+
+            array.push(response)
         })
+        let dataFinaly: any = await Promise.all(array)
+        setPokemoData(dataFinaly)
+
+
     }
 
-    //get API Initial
-    const getPokemonInitial = async () => { //llamar los primeros pokemon
 
-        const response = await axios.get(url.urlActual);
-        const data: getAPI = await response.data;
-        setbuttonsReder(data.count)
-        setPokemoData(data.results);
 
-        const obj = {
-            nextUrl: data.next,
-            prevUrl: data.previous ? data.previous : "",
-        }
-
-        //se agrega la pagina siguiente y anterior
-        seturl(prev => {
-            return {
-                ...prev, ...obj
-            }
-        })
-    }
-
-    //getAPI Next
-    const getAPI_Next = async (numero: string) => {//llama la siguiente pag
-
-        const response = await axios.get(url.nextUrl);
-        const data: getAPI = await response.data;
-        setPokemoData(data.results);
-
-        const obj = {
-            urlActual: url.nextUrl,
-            nextUrl: data.next === null ? "" : data.next,
-            prevUrl: data.previous,
-        }
-
-        seturl((prev: any) => {
-            return {
-                ...prev, ...obj
-            }
-        })
-    }
-
-    //prev Pag API
-    const getAPI_Previus = async () => {//llamar anterior pokemon
-
+    //llamar anterior pokemon
+    const getAPI_Previus = async () => {
         const response = await axios.get(url.prevUrl);
         const data: getAPI = await response.data;
         setPokemoData(data.results);
         // console.log(data);
-
         const obj = {
             urlActual: url.nextUrl,
             nextUrl: data.next,
             prevUrl: data.previous === null ? "" : data.previous,
         }
-
         seturl((prev: any) => {
             return {
                 ...prev, ...obj
@@ -114,6 +87,7 @@ export function UsuarioProvider(props?: any) { // props son opcionales si es que
     }
 
 
+    //llamar Botones
     const getButtunsArray = async () => {
 
         const response = await axios.get(url.urlActual);
@@ -129,7 +103,6 @@ export function UsuarioProvider(props?: any) { // props son opcionales si es que
         }
 
         setbuttonsReder(numeros)
-
     }
 
 
@@ -140,11 +113,11 @@ export function UsuarioProvider(props?: any) { // props son opcionales si es que
         return ({
 
             url,
-            getAPI_Next,
             getAPI_Previus,
             buttonsReder,
             pokemonData,
             getPokemonDinamic,
+
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pokemonData, url, buttonsReder])
@@ -153,12 +126,11 @@ export function UsuarioProvider(props?: any) { // props son opcionales si es que
 
     //useEffect
     useEffect(() => {
-        getPokemonInitial()
         getButtunsArray()
+        getPokemonDinamic("0")
     }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        , [])
-
+        , [seturl])
 
     return value
 }
@@ -172,3 +144,74 @@ export const ProvideAuth = ({ children, ...props }: any) => {
 
 export const useAuth = () => useContext(usuarioContext)
 
+
+
+
+// codigo reciclaje
+
+//    //get API Initial
+//    const getPokemonInitial = async () => { //llamar los primeros pokemon
+
+//     // const response = await axios.get(url.urlActual);
+//     // const data: getAPI = await response.data;
+
+
+
+//     //meto los pokemon llamados en un array
+//     const arra: any = data.results.map((x) => x.name)
+
+
+//     let array: any = [];
+//     arra.map(async (x: any) => {
+
+
+//         const response: any = await axios.get(`https://pokeapi.co/api/v2/pokemon/${x}`)
+//         const data: any = await response.data
+
+
+
+//         let obj: any = {
+//             name: data.name,
+//             img: `https://play.pokemonshowdown.com/sprites/xyani/${data.name}.gif`,
+//             tipos: data.types.map((type: any) => { return type.type.name }),
+//             hp: data.stats[0].base_stat,
+//             attack: data.stats[1].base_stat,
+//             defense: data.stats[2].base_stat,
+//             speed: data.stats[5].base_stat,
+//             id: data.id,
+//             color: data.color,
+//         }
+//         array.push(obj)
+//     })
+//     setPokemondataStats(array);
+
+//     // const obj = {
+//     //     nextUrl: data.next,
+//     //     prevUrl: data.previous ? data.previous : "",
+//     // }
+//     // //se agrega la pagina siguiente y anterior
+//     // seturl(prev => {
+//     //     return {
+//     //         ...prev, ...obj
+//     //     }
+//     // })
+
+
+
+
+// }
+
+
+// const color: any = async () => {
+
+//     let arrayColors: any = [];
+
+//     pokemonData.length > 0 && pokemonData.data.map(async (pokemon: any) => {
+//         const response = axios.get(`https://pokeapi.co/api/v2/pokemon-color/${pokemon.id}`)
+
+//         arrayColors.push(response)
+//     })
+
+//     let dataFinaly = await Promise.all(arrayColors)
+//     setColors(dataFinaly)
+// }

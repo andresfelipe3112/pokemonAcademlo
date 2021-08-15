@@ -1,0 +1,81 @@
+/* imagen */
+
+.ContainerPokemonID{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    
+    background-color: rgb(166, 255, 0);
+}
+
+.ContainerImagenID{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height:600px;
+    
+}
+
+
+.imagenGrandePokemonID{
+    width: 470px;
+    height:530px;
+    margin-bottom: -10vh;
+    margin-top: -2vh;
+}
+
+.imagenPequeñaPokemonID{
+    position: absolute;
+    top:50px;
+    left:500px;
+}
+
+/* container */
+
+.containerStatsID{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    width: 650px;
+  
+}
+
+.containerTodo{
+    display: flex;
+    flex-direction: column;
+    background-color:rgba(255, 255, 255, 0.322);
+    padding:0.5vh;
+   margin: 12px;
+    width: 40%;
+    border-radius: 13px;
+}
+
+/* text */
+
+.h1_id{
+    padding-top: 5vh;
+    font-family: 'Press Start 2P', cursive;
+    color: rgb(54, 0, 56);
+    font-size:14px;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    margin-top: -2vh;
+}
+
+.h3_id{
+
+  
+    color: rgb(0, 0, 0);;
+    width:100%;
+    /* height: 5px; */
+    text-align: center;
+    font-size: 15px;
+    
+    
+}
+

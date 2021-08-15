@@ -13,14 +13,14 @@ const ProtectedRoute = ({ children, ...props }: Props) => {
     const h1Ref = useRef<any>();
 
 
-    useEffect(() => {
-        if (typeof sessionStorage.getItem("user") === "string") {
-        } else {
-            setTimeout((e) => {
-                h1Ref.current.click();
-            }, 3000);
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (typeof sessionStorage.getItem("user") === "string") {
+    //     } else {
+    //         setTimeout((e) => {
+    //             h1Ref.current.click();
+    //         }, 5000);
+    //     }
+    // }, [])
 
 
     if (typeof sessionStorage.getItem("user") === "string") {
