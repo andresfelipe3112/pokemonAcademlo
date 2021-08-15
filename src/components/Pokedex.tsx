@@ -31,6 +31,8 @@ export default function Pokedex() {
     const [typoPokemon, setTypoPokemon] = useState<any>("")
     const [render, setrender] = useState(true)
     const [itemColor, setitemColor] = useState("")
+    const [buttonsTypesNext, setbuttonsTypesNext] = useState(0)
+    const [buttonsTypesAfter, setbuttonsTypesAfter] = useState([])
 
 
 
@@ -226,6 +228,22 @@ export default function Pokedex() {
     }
 
 
+
+    const nextTypes = () => {
+        setbuttonsTypesNext((prev: any) => {
+            return prev + 4
+        })
+    }
+    const afterTypes = () => {
+        setbuttonsTypesNext((prev: any) => {
+            if (prev <= 0) {
+                return prev = 0
+            }
+            return prev - 4
+        })
+    }
+
+
     //render DE TYPOS
     if (render === false) {
         return (
@@ -248,12 +266,15 @@ export default function Pokedex() {
                         <input style={{ position: "relative", right: "26px" }} type="submit" value="Search" />
                     </form>
                     <button style={{ backgroundColor: "red", fontSize: "15px" }} onClick={todos}>Return to All Pokemon</button>
+                    <button onClick={afterTypes}>{"<<<"}</button>
+                    <button onClick={nextTypes}>{">>>"}</button>
                 </div>
+
 
                 <div className="containerPokemon">
 
                     {
-                        typoPokemon.length > 0 && typoPokemon.slice(0, 10).map((pokemon: any, index: number) => {
+                        typoPokemon.length > 0 && typoPokemon.slice(buttonsTypesNext <= 0 ? 0 : buttonsTypesNext, buttonsTypesNext === 0 ? 8 : buttonsTypesNext + 8).map((pokemon: any, index: number) => {
 
 
                             return (
