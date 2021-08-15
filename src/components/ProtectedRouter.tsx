@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Route, Link } from 'react-router-dom'
 import "../styles/protectorRouter.css"
 

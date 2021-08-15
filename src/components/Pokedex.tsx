@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 
 
+
 type FormValues = {
     PokemonName: string;
 };
@@ -21,8 +22,6 @@ export default function Pokedex() {
 
     const { buttonsReder, pokemonData, getPokemonDinamic } = useAuth()
     const [sliceParams, setsliceParams] = useState({
-        // inicial: 0,
-        // limite: 10,
         inicial: location.state === undefined ? 0 : location.state.initial,
         limite: location.state === undefined ? 10 : location.state.limite,
     })
@@ -124,10 +123,18 @@ export default function Pokedex() {
 
 
     useEffect(() => {
+
+
+        // $(window).load(function () {
+        //     $(".loader").fadeOut("slow");
+        // });
+
+
         if (render === true && buttonsReder.length > 1) {
             let buttonPag: any = document.getElementsByClassName("button")[0]
             buttonPag.className = "bigButtons"
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -150,15 +157,15 @@ export default function Pokedex() {
         window.onbeforeunload = (event) => {
             const e = event || window.event;
             // Cancel the event
-            e.preventDefault();
-            if (e) {
-                e.returnValue = ''; // Legacy method for cross browser support
-            }
+            // e.preventDefault();
+            // if (e) {
+            //     e.returnValue = ''; // Legacy method for cross browser support
+            // }
 
             history.push("/login")
 
 
-            return ''; // Legacy method for cross browser support
+            // return ''; // Legacy method for cross browser support
 
         };
 
@@ -167,7 +174,7 @@ export default function Pokedex() {
 
 
             let g: any = document.getElementById("0")
-            if (itemColor === "" && g.className === "button") {
+            if (itemColor.length > 0 && itemColor === "" && g.className === "button") {
 
                 g.click()
             }
@@ -192,7 +199,7 @@ export default function Pokedex() {
 
 
 
-        //eslint - disable - next - line react - hooks / exhaustive - deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -213,6 +220,7 @@ export default function Pokedex() {
 
         typesPokemon()
 
+
     }, [])
 
 
@@ -224,6 +232,7 @@ export default function Pokedex() {
     //render DE TYPOS
     if (render === false) {
         return (
+
             <div className="Container">
 
                 <div className="ContainerSearch" style={{ marginBottom: "5vh" }}>
@@ -281,6 +290,7 @@ export default function Pokedex() {
                     }
 
                 </div>
+                <div className="loader"></div>
             </div>
 
         )
