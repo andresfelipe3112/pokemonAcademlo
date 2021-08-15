@@ -72,7 +72,7 @@ export default function Pokedex() {
     let array: any = []
 
     const typesSearch = async (e: any) => {
-        console.log(e.target.value);
+
 
         const response: any = await axios.get(`https://pokeapi.co/api/v2/type/${e.target.value}`)
         const data: any = await response.data

@@ -2,7 +2,6 @@
 import { useLocation, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Stat } from '../interfaces/interfaceConstext';
 import "../styles/pokemon.css"
 
 
@@ -49,6 +48,7 @@ export default function Pokemon() {
 
         var regex = /(\d+)/g;
         getPokemon(location.pathname.match(regex)[0])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
