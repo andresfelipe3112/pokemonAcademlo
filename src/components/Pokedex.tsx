@@ -4,6 +4,7 @@ import "../styles/pokedex.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom'
+import React, { lazy, Suspense } from 'react';
 
 
 
@@ -124,10 +125,6 @@ export default function Pokedex() {
 
     useEffect(() => {
 
-
-        // $(window).load(function () {
-        //     $(".loader").fadeOut("slow");
-        // });
 
 
         if (render === true && buttonsReder.length > 1) {
