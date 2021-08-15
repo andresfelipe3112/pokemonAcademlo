@@ -4,7 +4,7 @@ import "../styles/pokedex.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom'
-import React, { lazy, Suspense } from 'react';
+
 
 
 
@@ -253,7 +253,7 @@ export default function Pokedex() {
                 <div className="containerPokemon">
 
                     {
-                        typoPokemon.length > 0 && typoPokemon.map((pokemon: any, index: number) => {
+                        typoPokemon.length > 0 && typoPokemon.slice(0, 10).map((pokemon: any, index: number) => {
 
 
                             return (
